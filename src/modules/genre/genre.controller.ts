@@ -1,8 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { GenreService } from './genre.service';
 import { CreateGenreDto } from './dto/create-genre.dto';
 import { UpdateGenreDto } from './dto/update-genre.dto';
-import { ApiBody, ApiCreatedResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiCreatedResponse,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @ApiTags('Gênero')
 @Controller('genre')
@@ -27,7 +41,7 @@ export class GenreController {
   @ApiOperation({ summary: 'Retorna um gênero.' })
   @ApiParam({
     name: 'id',
-    description: 'Identificador do gênero.'
+    description: 'Identificador do gênero.',
   })
   findOne(@Param('id') id: string) {
     return this.genreService.findOne(id);
@@ -37,7 +51,7 @@ export class GenreController {
   @ApiOperation({ summary: 'Atualiza um gênero.' })
   @ApiParam({
     name: 'id',
-    description: 'Identificador do gênero.'
+    description: 'Identificador do gênero.',
   })
   update(@Param('id') id: string, @Body() updateGenreDto: UpdateGenreDto) {
     return this.genreService.update(id, updateGenreDto);
@@ -47,7 +61,7 @@ export class GenreController {
   @ApiOperation({ summary: 'Deleta um gênero.' })
   @ApiParam({
     name: 'id',
-    description: 'Identificador do gênero.'
+    description: 'Identificador do gênero.',
   })
   remove(@Param('id') id: string) {
     return this.genreService.remove(id);

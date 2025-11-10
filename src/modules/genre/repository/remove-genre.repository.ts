@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/shared/databases/prisma.database';
-import { CreateGenreDto } from '../dto/create-genre.dto';
 
 @Injectable()
-export class CreateGenreRepository {
+export class RemoveGenreRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(data: CreateGenreDto) {
-    const genre = await this.prisma.genre.create({ data });
+  async remove(id: string) {
+    const genre = await this.prisma.genre.delete({
+      where: {
+        id,
+      },
+    });
     return genre;
   }
 }

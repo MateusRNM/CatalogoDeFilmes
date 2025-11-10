@@ -1,16 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { CreateGenreDto } from './dto/create-genre.dto';
 import { UpdateGenreDto } from './dto/update-genre.dto';
-import { CreateGenreUseCase, ListGenreUseCase } from './use-cases';
+import {
+  CreateGenreUseCase,
+  FindOneGenreUseCase,
+  ListGenreUseCase,
+  RemoveGenreUseCase,
+  UpdateGenreUseCase,
+} from './use-cases';
 
 @Injectable()
 export class GenreService {
-
   constructor(
     private readonly createGenreUseCase: CreateGenreUseCase,
     private readonly listGenreUseCase: ListGenreUseCase,
+    private readonly findOneGenreUseCase: FindOneGenreUseCase,
+    private readonly updateGenreUseCase: UpdateGenreUseCase,
+    private readonly removeGenreUseCase: RemoveGenreUseCase,
   ) {}
-  
+
   create(createGenreDto: CreateGenreDto) {
     return this.createGenreUseCase.execute(createGenreDto);
   }
@@ -20,14 +28,14 @@ export class GenreService {
   }
 
   findOne(id: string) {
-    return `This action returns a #${id} genre`;
+    return this.findOneGenreUseCase.execute(id);
   }
 
   update(id: string, updateGenreDto: UpdateGenreDto) {
-    return `This action updates a #${id} genre`;
+    return this.updateGenreUseCase.execute(id, updateGenreDto);
   }
 
   remove(id: string) {
-    return `This action removes a #${id} genre`;
+    return this.removeGenreUseCase.execute(id);
   }
 }

@@ -1,16 +1,16 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { ListGenreRepository } from '../repository';
+import { FindOneGenreRepository } from '../repository';
 
 @Injectable()
-export class ListGenreUseCase {
+export class FindOneGenreUseCase {
   constructor(
-    private readonly genreRepository: ListGenreRepository,
+    private readonly genreRepository: FindOneGenreRepository,
     private readonly logger: Logger,
   ) {}
 
-  async execute() {
+  async execute(id: string) {
     try {
-      const genre = await this.genreRepository.list();
+      const genre = await this.genreRepository.findOne(id);
       return genre;
     } catch (error) {
       this.logger.error(error);
