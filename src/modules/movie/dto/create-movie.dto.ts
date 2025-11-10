@@ -1,5 +1,6 @@
+import { Optional } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { IsBooleanString, IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateMovieDto {
   @IsString()
@@ -20,6 +21,10 @@ export class CreateMovieDto {
     description: 'Ano de lançamento do filme.',
   })
   releaseYear: number;
+
+  @IsBooleanString()
+  @Optional()
+  isFavorite: boolean;
 
   @IsString()
   @IsNotEmpty()

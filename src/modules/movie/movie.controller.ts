@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseBoolPipe,
 } from '@nestjs/common';
 import { MovieService } from './movie.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
@@ -65,5 +66,30 @@ export class MovieController {
   })
   remove(@Param('id') id: string) {
     return this.movieService.remove(id);
+  }
+
+  @Patch(':id/:favorite')
+  @ApiOperation({ summary: 'Favorita/Desfavorita um filme.' })
+  @ApiParam({
+    name: 'id',
+    description: 'Identificador do filme.',
+  })
+  @ApiParam({
+    name: 'favorite',
+    description:
+      'Valor que deve ser inserido no atributo favorite (true/false).',
+    type: 'boolean',
+  })
+  favorite(
+    @Param('id') id: string,
+    @Param('favorite', ParseBoolPipe) favorite: boolean,
+  ) {
+    return this.movieService.favorite(id, favorite);
+  }
+
+  @Get('/list/favorites')
+  @ApiOperation({ summary: 'Lista todos os filmes favoritados.' })
+  listFavorite() {
+    return this.movieService.listFavorite();
   }
 }
